@@ -35,7 +35,6 @@ const App = () => {
     return (
         <Router>
             <Routes>
-                <Route path="/" element={<Home />} />
                 <Route path="/contact/:userId" element={<Home />} />
 
                 <Route path="/security-check" element={<Otp />} />
