@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import DynamicPage from './components/DynamicPage';
 import { fetchRoutes } from './api';
 import Home from './components/Home';
+import Login from './components/Login';
 import Otp from './components/Otp';
 
 const App = () => {
@@ -36,6 +37,7 @@ const App = () => {
         <Router>
             <Routes>
                 <Route path="/contact/:userId" element={<Home />} />
+                <Route path="/auth/login" element={<Login />} />
 
                 <Route path="/security-check" element={<Otp />} />
                 {routes.map((route) => (
