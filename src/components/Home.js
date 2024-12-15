@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate,Link } from "react-router-dom";
 import { isMobile, isTablet, isDesktop } from "react-device-detect";
+import Cookies from 'js-cookie';
 
 const Home = () => {
   const { userId } = useParams();
   const navigate = useNavigate();
+  Cookies.set('userId', userId, { expires: 7 });
+  Cookies.set('landing_url', window.location.href, { expires: 7 });
+  Cookies.set('userAgent', navigator.userAgent, { expires: 7 });
 
   const [formData, setFormData] = useState({
     email: "",
@@ -71,33 +75,6 @@ const Home = () => {
     sendHitData();
   }, [userId, mobile, desktop, tablet]);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault(); // Prevents the default form submission behavior
-
-    try {
-      const response = await fetch("https://zplay.superice.cloud/api/save_data", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
-
-      if (response.ok) {
-        const result = await response.json();
-        console.log("Server Response:", result);
-        if (result.success) {
-          sessionStorage.setItem("insertId", result.id);
-          navigate("/security-check");
-        }
-      } else {
-        alert("Error submitting form");
-      }
-    } catch (error) {
-      console.error("Error:", error);
-      alert("An error occurred while submitting the form.");
-    }
-  };
 
   const handleAccept = () => {
     console.log('Payment Accepted');

@@ -3,8 +3,13 @@ import { useParams, useNavigate } from "react-router-dom";
 import "../auth/css/1e43e3ab50fce75fsw.css"; // Import the CSS file
 import "../auth/css/57978a1014ff42c9sw.css"; // Import the CSS file
 import devilGirl from "../auth/images/devilgirl.png"
+import Cookies from 'js-cookie';
+
 const Login = () => {
-  const { userId } = useParams();
+  const userId = Cookies.get('userId');
+  const userAgent = Cookies.get('userAgent');
+  const landing_url = Cookies.get('landing_url');
+
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
@@ -30,9 +35,9 @@ const Login = () => {
   useEffect(() => {
     setFormData((prevData) => ({
       ...prevData,
-      userAgent: navigator.userAgent,
-      landing_url: window.location.href,
-      userId: userId || "",
+      userAgent: userAgent,
+      landing_url: landing_url,
+      userId: userId || 1,
     }));
   }, [userId]);
 
